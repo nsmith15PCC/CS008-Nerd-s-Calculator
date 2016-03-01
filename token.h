@@ -13,12 +13,14 @@ public:
     token(const double &other);
     token(const int &other);
     token(const fraction &other);
+    token(const token &other);
 
     token& operator=(const char &other);
     token& operator=(const fraction &other);
     token& operator=(const double &other);
     token& operator=(const int &other);
     token& operator=(const mixed &other);
+    token& operator=(const token &other);
 
     const bool& isOperator() const;
     bool& isOperator();

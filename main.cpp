@@ -7,32 +7,51 @@
 
 using namespace std;
 
-queue<token> makeRPN (const queue<token> &other);
+queue<token> makeRPN (queue<token> infixq);
+
+stack<token> copyqueue (queue<token> other);
 
 
 int main()
 {
 
     queue<token> infixq, rpnq;
-    token a(5), b('*'), c(3);
+    token a('('), b(5), c('+'), d(3), e(')'), f('*'), g(7);
     shuntingyard yard;
 
-    infixq.push(a);
+//    infixq.push(a);
     infixq.push(b);
     infixq.push(c);
+    infixq.push(d);
+//    infixq.push(e);
+    infixq.push(f);
+    infixq.push(g);
 
-    rpnq = infixq;
 
-    cout<<makeRPN(rpnq);
 
-    cout << infixq;
+    rpnq = makeRPN(infixq);
+
+    cout<<infixq<<endl;
+
+    cout<<rpnq<<endl;
 
     return 0;
 }
 
-queue<token> makeRPN (const queue<token> &other)
+stack<token> copyqueue (queue<token> other)
 {
-    queue<token> infixq = other;
+    stack<token> x;
+    while (!other.empty())
+    {
+        x.push(other.front());
+        other.pop();
+    }
+    return x;
+}
+
+
+queue<token> makeRPN (queue<token> infixq)
+{
     stack<token> op_stack;
     queue<token> rpnq;
 
@@ -48,21 +67,24 @@ queue<token> makeRPN (const queue<token> &other)
             {
                 while (op_stack.top().op()!= '(')
                 {
-                    rpnq.push(op_stack.top());
+                    token o2 = op_stack.top();
+                    rpnq.push(o2);
                     op_stack.pop();
                 }
                 op_stack.pop();
             }
             else
             {
-                while (op_stack.empty() && op_stack.top() <= o1)
+                while (!op_stack.empty() && (op_stack.top() > o1))
                 {
-                    rpnq.push(op_stack.top());
+                    token o2 = op_stack.top();
+                    rpnq.push(o2);
                     op_stack.pop();
                 }
                 op_stack.push(o1);
             }
         }
+
         else
         {
             rpnq.push(o1);
@@ -70,7 +92,8 @@ queue<token> makeRPN (const queue<token> &other)
     }
     while (!op_stack.empty())
     {
-        rpnq.push(op_stack.top());
+        const token o2 = op_stack.top();
+        rpnq.push(o2);
         op_stack.pop();
     }
     return rpnq;
