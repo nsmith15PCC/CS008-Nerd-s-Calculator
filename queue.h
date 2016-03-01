@@ -49,19 +49,19 @@ private:
 template <typename value_type>
 queue<value_type>::queue()
 {
-head = tail = NULL;
-qty = 0;
+    head = tail = NULL;
+    qty = 0;
 }
 
 template <typename value_type>
 queue<value_type>::~queue()
 {
-while (head)
-{
-    node<value_type> *ptr = (node<value_type>*)head;
-    head = head->get_next();
-    delete ptr;
-}
+    while (head)
+    {
+        node<value_type> *ptr = (node<value_type>*)head;
+        remove_from_head();
+        delete ptr;
+    }
 }
 
 template <typename value_type>
@@ -91,8 +91,8 @@ template <typename value_type>
 void queue<value_type>::pop()
 {
     node<value_type> *ptr = (node<value_type>*)head;
-remove_from_head();
-delete ptr;
+    remove_from_head();
+    delete ptr;
 }
 
 template <typename value_type>
