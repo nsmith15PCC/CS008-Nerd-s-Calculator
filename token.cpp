@@ -165,7 +165,7 @@ bool operator!=(const token x, const token y)
 std::ostream& operator<<(std::ostream& out, const token &t)
 {
     if (t.Operator)
-            out<<t.theOp;
+        out<<t.theOp;
     else
         out<<t.thevalue;
     return out;
