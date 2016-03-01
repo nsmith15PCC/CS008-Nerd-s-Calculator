@@ -4,7 +4,7 @@ shuntingyard::shuntingyard(){}
 
 queue<token> shuntingyard::makeRPN (queue<token> infixq)
 {
-    stack<myoperator> op_stack;
+    stack<token> op_stack;
     queue<token> rpnq;
 
     while (!infixq.empty())
@@ -13,14 +13,14 @@ queue<token> shuntingyard::makeRPN (queue<token> infixq)
         infixq.pop();
         if (o1->isOperator())
         {
-            myoperator *myop = (myoperator*)(o1);
+            token *myop = (token*)(o1);
             if (myop->op() == '(')
-                op_stack.push(myoperator(*myop));
+                op_stack.push(token(*myop));
             else if (myop->op() == ')')
             {
                 while (op_stack.top().op()!= '(')
                 {
-                    rpnq.push(myoperator(op_stack.top()));
+                    rpnq.push(token(op_stack.top()));
                     op_stack.pop();
                 }
                 op_stack.pop();
@@ -29,22 +29,22 @@ queue<token> shuntingyard::makeRPN (queue<token> infixq)
             {
                 while (op_stack.empty() && op_stack.top() <= *myop)
                 {
-                    rpnq.push(myoperator(op_stack.top()));
+                    rpnq.push(token(op_stack.top()));
                     op_stack.pop();
                 }
-                op_stack.push(myoperator(*myop));
+                op_stack.push(token(*myop));
             }
         }
         else
         {
-            operand* myop = (operand*)o1;
-            rpnq.push(operand(*myop));
+            token* myop = (token*)o1;
+            rpnq.push(token(*myop));
             infixq.pop();
         }
     }
     while (!op_stack.empty())
     {
-        rpnq.push(myoperator(op_stack.top()));
+        rpnq.push(token(op_stack.top()));
         op_stack.pop();
     }
     return rpnq;

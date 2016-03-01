@@ -91,8 +91,8 @@ template <typename value_type>
 void queue<value_type>::pop()
 {
     node<value_type> *ptr = (node<value_type>*)head;
-    head = head->get_next();
-    delete ptr;
+remove_from_head();
+delete ptr;
 }
 
 template <typename value_type>
