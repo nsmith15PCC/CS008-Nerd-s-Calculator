@@ -10,16 +10,16 @@ using namespace std;
 int main()
 {
 
-    queue<token> infixq;
-    token a(5), b('*'), c(3);
+    queue<token> infixq, otherq;
+    token a(5), b('*'), c(1.25);
+    shuntingyard yard;
 
     infixq.push(a);
     infixq.push(b);
     infixq.push(c);
 
-    cout<<infixq;
+    cout<<infixq<<endl;
 
-    cout<<"Hello World!"<<endl;
 
     return 0;
 
