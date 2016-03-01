@@ -20,23 +20,26 @@ queue<token> shuntingyard::makeRPN (queue<token> infixq)
                 op_stack.push(o1);
             else if (o1.op() == ')')
             {
-                while (op_stack.top().op()!= '(')
+                while (op_stack.top().op() != '(')
                 {
-                    rpnq.push(op_stack.top());
+                    token o2 = op_stack.top();
+                    rpnq.push(o2);
                     op_stack.pop();
                 }
                 op_stack.pop();
             }
             else
             {
-                while (op_stack.empty() && op_stack.top() <= o1)
+                while (!op_stack.empty() && (op_stack.top() > o1))
                 {
-                    rpnq.push(op_stack.top());
+                    token o2 = op_stack.top();
+                    rpnq.push(o2);
                     op_stack.pop();
                 }
                 op_stack.push(o1);
             }
         }
+
         else
         {
             rpnq.push(o1);
@@ -44,10 +47,34 @@ queue<token> shuntingyard::makeRPN (queue<token> infixq)
     }
     while (!op_stack.empty())
     {
-        rpnq.push(op_stack.top());
+        const token o2 = op_stack.top();
+        rpnq.push(o2);
         op_stack.pop();
     }
     return rpnq;
 }
 
-static mixed calculate (queue<token> rpnq){}
+mixed shuntingyard::calculate (queue<token> rpnq)
+{
+    stack<token> val_stack;
+
+    while (!rpnq.empty())
+    {
+        token o1 = rpnq.front();
+        rpnq.pop();
+
+        if (o1.isOperator())
+        {
+            token second = val_stack.top();
+            val_stack.pop();
+            token first = val_stack.top();
+            val_stack.pop();
+            token answer = o1.perform(first,second);
+            val_stack.push(answer);
+        }
+        else
+            val_stack.push(o1);
+    }
+
+    return val_stack.top().value();
+}

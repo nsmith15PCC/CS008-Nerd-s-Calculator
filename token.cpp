@@ -117,7 +117,7 @@ token::token(char o)
     allPriorities['*'] = 2;
     allPriorities['/'] = 2;
     allPriorities['^'] = 3;
-    allPriorities['('] = 4;
+    allPriorities['('] = 0;
     allPriorities[')'] = 4;
 }
 
@@ -207,7 +207,7 @@ std::istream& operator>>(std::istream& in, token &t)
     std::string line;
     std::stringstream ss;
     getline(in, line);
-    if (isdigit(line[0]))
+    if (line.find_first_of("0123456789") != string::npos)
     {
         mixed m;
         ss << line;
@@ -216,10 +216,7 @@ std::istream& operator>>(std::istream& in, token &t)
     }
     else
     {
-        char c;
-        ss << line;
-        ss.get(c);
-        t = c;
+        t = line[0];
     }
     return in;
 
