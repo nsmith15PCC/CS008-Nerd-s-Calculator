@@ -31,12 +31,14 @@ void parser::feed(string line)
             pos2 = line.find_first_of("/*-+^()",pos2+1);
         if (pos2 == string::npos)
             pos2 = line.length();
-
+        if(line.substr(pos1, pos2-pos1)!= " ")
+        {
         ss<< line.substr(pos1, pos2-pos1);
         cout<<pos1<<' '<<pos2<<" Substring: "<<line.substr(pos1, pos2-pos1)<<endl;
         ss >> num;
         op = num;
         nQue.push(op);
+        }
 
         if (pos2 < line.length())
         {
