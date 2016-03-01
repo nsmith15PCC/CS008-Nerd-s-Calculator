@@ -40,7 +40,7 @@ public:
 
     template<typename T>
     friend
-    ostream& operator<<(ostream& out, queue<T> q);
+    ostream& operator<<(ostream& out, const queue<T> &q);
 
 private:
     void copy (const queue<value_type> &other);
@@ -134,10 +134,11 @@ istream& operator>>(istream& in, queue<T> q)
 }
 
 template<typename T>
-ostream& operator<<(ostream& out, queue<T> q)
+ostream& operator<<(ostream& out, const queue<T> &q)
 {
     for (node<T> *ptr = (node<T>*)q.head; ptr; ptr = (node<T>*)ptr->get_next())
         out<<ptr->get_value()<<endl;
+    out<<endl;
     return out;
 }
 
@@ -146,7 +147,10 @@ template <typename value_type>
 void queue<value_type>::copy (const queue<value_type> &other)
 {
     for (node<value_type> *ptr = (node<value_type>*)other.head; ptr; ptr = (node<value_type>*)ptr->get_next())
-        push(ptr->get_value());
+    {
+        node<value_type> *newNode = new node<value_type>(ptr->get_value());
+        insert_at_tail(newNode);
+    }
 }
 
 #endif // QUEUE
