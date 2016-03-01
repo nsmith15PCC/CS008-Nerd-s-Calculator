@@ -7,51 +7,34 @@
 
 using namespace std;
 
-queue<token> makeRPN (queue<token> infixq);
-
-stack<token> copyqueue (queue<token> other);
+queue<token> makeRPN (const queue<token> &other);
 
 
 int main()
 {
 
     queue<token> infixq, rpnq;
-    token a('('), b(5), c('+'), d(3), e(')'), f('*'), g(7);
+    token a(5), b('*'), c(3);
     shuntingyard yard;
 
-//    infixq.push(a);
+    infixq.push(a);
     infixq.push(b);
     infixq.push(c);
-    infixq.push(d);
-//    infixq.push(e);
-    infixq.push(f);
-    infixq.push(g);
 
+    rpnq = infixq;
 
+    cout << infixq;
 
-    rpnq = makeRPN(infixq);
+    //error in makeRPN. Currently taking a look into this. I believe line 60 is the cause.
+    cout<<makeRPN(rpnq);
 
-    cout<<infixq<<endl;
-
-    cout<<rpnq<<endl;
 
     return 0;
 }
 
-stack<token> copyqueue (queue<token> other)
+queue<token> makeRPN (const queue<token> &other)
 {
-    stack<token> x;
-    while (!other.empty())
-    {
-        x.push(other.front());
-        other.pop();
-    }
-    return x;
-}
-
-
-queue<token> makeRPN (queue<token> infixq)
-{
+    queue<token> infixq = other;
     stack<token> op_stack;
     queue<token> rpnq;
 
@@ -67,33 +50,32 @@ queue<token> makeRPN (queue<token> infixq)
             {
                 while (op_stack.top().op()!= '(')
                 {
-                    token o2 = op_stack.top();
-                    rpnq.push(o2);
+                    rpnq.push(op_stack.top());
                     op_stack.pop();
                 }
                 op_stack.pop();
             }
             else
             {
-                while (!op_stack.empty() && (op_stack.top() > o1))
+                //The code below causes error, as if it is empty, there is no top, returning a NULL?
+                while (op_stack.empty() && op_stack.top() <= o1)
                 {
-                    token o2 = op_stack.top();
-                    rpnq.push(o2);
+                    rpnq.push(op_stack.top());
                     op_stack.pop();
                 }
                 op_stack.push(o1);
             }
         }
-
         else
         {
             rpnq.push(o1);
         }
+        cout << "infixq qty = " << infixq.size() << std::endl;
     }
+
     while (!op_stack.empty())
     {
-        const token o2 = op_stack.top();
-        rpnq.push(o2);
+        rpnq.push(op_stack.top());
         op_stack.pop();
     }
     return rpnq;

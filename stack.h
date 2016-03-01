@@ -33,7 +33,7 @@ public:
 
     template<typename D>
     friend
-    ostream& operator<<(ostream& out, const stack<D> &theStack);
+    ostream& operator<<(ostream& out, stack<D> &theStack);
 
     template<typename D>
     friend
@@ -46,15 +46,13 @@ private:
 template <typename value_type>
 stack<value_type>::stack()
 {
-    head = tail = NULL;
-    qty = 0;
+    head = NULL;
 }
 
 template <typename value_type>
 stack<value_type>::~stack()
 {
-while(head)
-    pop();
+    nukem();
 }
 
 template <typename value_type>
@@ -74,9 +72,7 @@ stack<value_type>& stack<value_type>::operator=(const stack &other)
 template <typename value_type>
 void stack<value_type>::pop()
 {
-    node<value_type> *ptr = (node<value_type>*)head;
     remove_from_head();
-    delete ptr;
 }
 
 template <typename value_type>
@@ -103,25 +99,23 @@ void stack<value_type>::push(const value_type &new_value)
 template <typename value_type>
 void stack<value_type>::copy (const stack<value_type> &other)
 {
-    while (head)
-        pop();
+    nukem();
+    node<value_type> *ptr = (node<value_type>*)other.head;
 
-
-    for (node<value_type> *ptr = (node<value_type>*)other.head; ptr; ptr = (node<value_type>*)ptr->get_next())
+    while (ptr)
     {
-        node<value_type> *newNode = new node<value_type>(*ptr);
-        insert_at_tail(newNode);
+        insert_at_tail(new node<value_type>(*ptr));
+        ptr = (node<value_type>*)ptr->get_next();
     }
 }
 
 template<typename D>
-ostream& operator<<(ostream& out, const stack<D> &theStack)
+ostream& operator<<(ostream& out, stack<D> &theStack)
 {
     for (node<D> *ptr = (node<D>*)theStack.head;
-         ptr;
+         ptr != NULL;
          ptr = (node<D>*)ptr->get_next())
-         out<<(*ptr)<<' ';
-    out<<"\b ";
+         out<<(*ptr)<<endl;
 
     return out;
 }

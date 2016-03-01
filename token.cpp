@@ -31,17 +31,10 @@ token::token(const fraction &other)
     *this = other;
 }
 
-token::token(const token &other)
-{
-    thevalue = other.thevalue;
-    theOp = other.theOp;
-    Operator = other.Operator;
-}
-
 token& token::operator=(const char &other)
 {
     theOp = other;
-    Operator = true;
+    isOperator() = true;
     thevalue = mixed();
 }
 
@@ -49,26 +42,15 @@ token& token::operator=(const mixed &other)
 {
     thevalue = other;
     theOp = NULL;
-    Operator = false;
+    isOperator() = false;
     return*this;
-}
-
-token& token::operator=(const token &other)
-{
-    if (this != &other)
-    {
-    thevalue = other.thevalue;
-    theOp = other.theOp;
-    Operator = other.Operator;
-    }
-    return *this;
 }
 
 token& token::operator=(const fraction &other)
 {
     thevalue = other;
     theOp = NULL;
-    Operator = false;
+    isOperator() = false;
     return*this;
 }
 
@@ -76,7 +58,7 @@ token& token::operator=(const double &other)
 {
     thevalue = other;
     theOp = NULL;
-    Operator = false;
+    isOperator() = false;
     return*this;
 }
 
@@ -84,7 +66,7 @@ token& token::operator=(const int &other)
 {
     thevalue = other;
     theOp = NULL;
-    Operator = false;
+    isOperator() = false;
     return*this;
 }
 
@@ -194,6 +176,7 @@ bool operator!=(const token x, const token y)
 
 std::ostream& operator<<(std::ostream& out, const token &t)
 {
+
     if (t.Operator)
         out<<t.theOp;
     else
