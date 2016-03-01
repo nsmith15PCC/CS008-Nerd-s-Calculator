@@ -1,51 +1,50 @@
 #include "shuntingyard.h"
 
-shuntingyard::shuntingyard(){}
-
-queue<token> shuntingyard::makeRPN (const queue<token> &other)
+shuntingyard::shuntingyard()
 {
-    queue<token> infixq = other;
+
+}
+
+queue<token> shuntingyard::makeRPN (queue<token> infixq)
+{
     stack<token> op_stack;
     queue<token> rpnq;
 
     while (!infixq.empty())
     {
-        token *o1 = &infixq.front();
+        token o1 = infixq.front();
         infixq.pop();
-        if (o1->isOperator())
+        if (o1.isOperator())
         {
-            token *myop = (token*)(o1);
-            if (myop->op() == '(')
-                op_stack.push(token(*myop));
-            else if (myop->op() == ')')
+            if (o1.op() == '(')
+                op_stack.push(o1);
+            else if (o1.op() == ')')
             {
                 while (op_stack.top().op()!= '(')
                 {
-                    rpnq.push(token(op_stack.top()));
+                    rpnq.push(op_stack.top());
                     op_stack.pop();
                 }
                 op_stack.pop();
             }
             else
             {
-                while (op_stack.empty() && op_stack.top() <= *myop)
+                while (op_stack.empty() && op_stack.top() <= o1)
                 {
-                    rpnq.push(token(op_stack.top()));
+                    rpnq.push(op_stack.top());
                     op_stack.pop();
                 }
-                op_stack.push(token(*myop));
+                op_stack.push(o1);
             }
         }
         else
         {
-            token* myop = (token*)o1;
-            rpnq.push(token(*myop));
-            infixq.pop();
+            rpnq.push(o1);
         }
     }
     while (!op_stack.empty())
     {
-        rpnq.push(token(op_stack.top()));
+        rpnq.push(op_stack.top());
         op_stack.pop();
     }
     return rpnq;

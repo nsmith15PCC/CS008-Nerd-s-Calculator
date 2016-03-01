@@ -106,7 +106,7 @@ istream& operator>>(istream& in, node<D> theNode)
 template <typename value_type>
 void node<value_type>::copy (const node<value_type> &other)
 {
-    value = other.value;
+    value = other.get_value();
     prev = next = NULL;
 }
 

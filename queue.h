@@ -67,6 +67,7 @@ queue<value_type>::~queue()
 template <typename value_type>
 queue<value_type>::queue(const queue<value_type> &other)
 {
+
     copy(other);
 }
 
@@ -138,7 +139,6 @@ ostream& operator<<(ostream& out, const queue<T> &q)
 {
     for (node<T> *ptr = (node<T>*)q.head; ptr; ptr = (node<T>*)ptr->get_next())
         out<<ptr->get_value()<<endl;
-    out<<endl;
     return out;
 }
 
@@ -146,9 +146,16 @@ ostream& operator<<(ostream& out, const queue<T> &q)
 template <typename value_type>
 void queue<value_type>::copy (const queue<value_type> &other)
 {
+    while (head)
+    {
+        node<value_type> *ptr = (node<value_type>*)head;
+        remove_from_head();
+        delete ptr;
+    }
+
     for (node<value_type> *ptr = (node<value_type>*)other.head; ptr; ptr = (node<value_type>*)ptr->get_next())
     {
-        node<value_type> *newNode = new node<value_type>(ptr->get_value());
+        node<value_type> *newNode = new node<value_type>(*ptr);
         insert_at_tail(newNode);
     }
 }
