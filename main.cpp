@@ -13,7 +13,7 @@ int main()
     queue<token> infixq, rpnq;
     parser p;
     shuntingyard yard;
-    p.feed(" 5 * 8 + 4 ");
+    p.feed(" ( 5 * ( 8 + 4 ) )");
 
     infixq = p.getQue();
 
