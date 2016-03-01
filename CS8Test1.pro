@@ -10,8 +10,6 @@ SOURCES += \
     mixed.cpp \
     main.cpp \
     token.cpp \
-    operand.cpp \
-    myoperator.cpp \
     shuntingyard.cpp
 
 HEADERS += \
@@ -23,7 +21,5 @@ HEADERS += \
     mixed.h \
     stack.h \
     token.h \
-    operand.h \
-    myoperator.h \
     shuntingyard.h
 

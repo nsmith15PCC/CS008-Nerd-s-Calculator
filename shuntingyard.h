@@ -3,8 +3,6 @@
 
 #include <iostream>
 #include "token.h"
-#include "myoperator.h"
-#include "operand.h"
 #include "stack.h"
 #include "queue.h"
 #include "mixed.h"
