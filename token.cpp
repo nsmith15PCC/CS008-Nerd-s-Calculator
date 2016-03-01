@@ -31,10 +31,17 @@ token::token(const fraction &other)
     *this = other;
 }
 
+token::token(const token &other)
+{
+    thevalue = other.thevalue;
+    theOp = other.theOp;
+    Operator = other.Operator;
+}
+
 token& token::operator=(const char &other)
 {
     theOp = other;
-    isOperator() = true;
+    Operator = true;
     thevalue = mixed();
 }
 
@@ -42,15 +49,26 @@ token& token::operator=(const mixed &other)
 {
     thevalue = other;
     theOp = NULL;
-    isOperator() = false;
+    Operator = false;
     return*this;
+}
+
+token& token::operator=(const token &other)
+{
+    if (this != &other)
+    {
+    thevalue = other.thevalue;
+    theOp = other.theOp;
+    Operator = other.Operator;
+    }
+    return *this;
 }
 
 token& token::operator=(const fraction &other)
 {
     thevalue = other;
     theOp = NULL;
-    isOperator() = false;
+    Operator = false;
     return*this;
 }
 
@@ -58,7 +76,7 @@ token& token::operator=(const double &other)
 {
     thevalue = other;
     theOp = NULL;
-    isOperator() = false;
+    Operator = false;
     return*this;
 }
 
@@ -66,7 +84,7 @@ token& token::operator=(const int &other)
 {
     thevalue = other;
     theOp = NULL;
-    isOperator() = false;
+    Operator = false;
     return*this;
 }
 
