@@ -10,7 +10,8 @@ SOURCES += \
     mixed.cpp \
     main.cpp \
     token.cpp \
-    shuntingyard.cpp
+    shuntingyard.cpp \
+    parser.cpp
 
 HEADERS += \
     linkedlist.h \
@@ -21,5 +22,6 @@ HEADERS += \
     mixed.h \
     stack.h \
     token.h \
-    shuntingyard.h
+    shuntingyard.h \
+    parser.h
 
