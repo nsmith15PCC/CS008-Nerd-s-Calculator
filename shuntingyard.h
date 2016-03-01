@@ -12,7 +12,7 @@ class shuntingyard
 public:
     shuntingyard();
 
-    static queue<token> makeRPN (const queue<token> &other);
+    static queue<token> makeRPN (queue<token> infixq);
 
     static mixed calculate (queue<token> rpnq);
 };
