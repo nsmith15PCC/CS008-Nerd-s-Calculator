@@ -114,10 +114,12 @@ istream& operator>>(istream& in, mixed &number)
     fraction num, denom(1);
     in >> line;
     size_t space = line.find(' '), slash = line.find('/');
+try{
+
     if (space != string::npos && slash != string::npos)
     {
         num = stod(line.substr(0,space)) * stod(line.substr(slash+1)) + stod(line.substr(space+1, slash));
-        denom = stod(line.substr(0,space));
+        denom = stod(line.substr(slash+1));
     }
     else if (slash != string::npos)
     {
@@ -127,5 +129,11 @@ istream& operator>>(istream& in, mixed &number)
     else
         num = stod(line);
     number = num/denom;
+    }
+    catch(...)
+    {
+        cout<<line;
+    }
+
     return in;
 }

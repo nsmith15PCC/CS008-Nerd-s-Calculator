@@ -59,7 +59,7 @@ public:
     std::ostream& operator<<(std::ostream& out, const token &t);
 
     friend
-    std::istream& operator>>(std::ostream& in, const token &t);
+    std::istream& operator>>(std::istream& in, token &t);
 
 
 
