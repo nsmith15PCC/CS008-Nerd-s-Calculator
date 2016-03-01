@@ -9,7 +9,7 @@ public:
     typedef token (*func_ptr) (const token&, const token&);
 
     token(char o = NULL);
-    token(mixed v);
+    token(const mixed &v);
     token(const double &other);
     token(const int &other);
     token(const fraction &other);
@@ -18,6 +18,7 @@ public:
     token& operator=(const fraction &other);
     token& operator=(const double &other);
     token& operator=(const int &other);
+    token& operator=(const mixed &other);
 
     const bool& isOperator() const;
     bool& isOperator();

@@ -11,11 +11,9 @@ bool& token::isOperator()
     return Operator;
 }
 
-token::token(mixed v)
+token::token(const mixed &other)
 {
-    thevalue = v;
-    theOp = NULL;
-    isOperator() = false;
+*this = other;
 }
 
 token::token(const double &other)
@@ -40,22 +38,36 @@ token& token::operator=(const char &other)
     thevalue = mixed();
 }
 
+token& token::operator=(const mixed &other)
+{
+    thevalue = other;
+    theOp = NULL;
+    isOperator() = false;
+    return*this;
+}
+
 token& token::operator=(const fraction &other)
 {
     thevalue = other;
-    return *this;
+    theOp = NULL;
+    isOperator() = false;
+    return*this;
 }
 
 token& token::operator=(const double &other)
 {
     thevalue = other;
-    return *this;
+    theOp = NULL;
+    isOperator() = false;
+    return*this;
 }
 
 token& token::operator=(const int &other)
 {
     thevalue = other;
-    return *this;
+    theOp = NULL;
+    isOperator() = false;
+    return*this;
 }
 
 mixed& token::value ()

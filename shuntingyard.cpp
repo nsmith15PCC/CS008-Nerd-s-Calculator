@@ -2,8 +2,9 @@
 
 shuntingyard::shuntingyard(){}
 
-queue<token> shuntingyard::makeRPN (queue<token> infixq)
+queue<token> shuntingyard::makeRPN (const queue<token> &other)
 {
+    queue<token> infixq = other;
     stack<token> op_stack;
     queue<token> rpnq;
 
