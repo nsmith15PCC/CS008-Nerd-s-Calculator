@@ -57,7 +57,11 @@ template <typename value_type>
 queue<value_type>::~queue()
 {
     while (head)
-        pop();
+    {
+        node<value_type> *ptr = (node<value_type>*)head;
+        remove_from_head();
+        delete ptr;
+    }
 }
 
 template <typename value_type>
@@ -134,8 +138,7 @@ template<typename T>
 ostream& operator<<(ostream& out, const queue<T> &q)
 {
     for (node<T> *ptr = (node<T>*)q.head; ptr; ptr = (node<T>*)ptr->get_next())
-        out<<ptr->get_value()<<' ';
-    out<<"\b ";
+        out<<ptr->get_value()<<endl;
     return out;
 }
 
@@ -144,8 +147,11 @@ template <typename value_type>
 void queue<value_type>::copy (const queue<value_type> &other)
 {
     while (head)
-        pop();
-
+    {
+        node<value_type> *ptr = (node<value_type>*)head;
+        remove_from_head();
+        delete ptr;
+    }
 
     for (node<value_type> *ptr = (node<value_type>*)other.head; ptr; ptr = (node<value_type>*)ptr->get_next())
     {
