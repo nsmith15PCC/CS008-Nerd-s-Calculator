@@ -110,25 +110,14 @@ ostream& operator<<(ostream& out, const mixed &number)
 
 istream& operator>>(istream& in, mixed &number)
 {
+    int w, n, d;
+    stringstream ss;
+    char junk;
     string line;
-    fraction num, denom(1);
-    in >> ws;
-    getline(in, line);
-    size_t space = line.find(' '), slash = line.find('/');
 
-    if (space != string::npos && slash != string::npos)
-    {
-        num = stod(line.substr(0,space)) * stod(line.substr(slash+1)) + stod(line.substr(space+1, slash));
-        denom = stod(line.substr(slash+1));
-    }
-    else if (slash != string::npos)
-    {
-        num = stod(line.substr(0,slash));
-        denom = stod(line.substr(slash+1));
-    }
-    else
-        num = stod(line);
-    number = num/denom;
+    in >> w >> n >> junk >> d;
+
+    number = mixed(w, n, d);
 
 
     return in;
