@@ -27,7 +27,7 @@ int main()
 
     cout<<"Infix: "<<infixq<<endl;
 
-    rpnq = shuntingyard::makeRPN(infixq);
+    rpnq = shuntingyard::makeRPN(infixq);//Something
 
     cout<<"Postfix: "<<rpnq<<endl;
 
