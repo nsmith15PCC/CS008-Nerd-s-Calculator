@@ -23,11 +23,11 @@ int main()
 
     infixq = p.getQue();
 
-    cout<<"Entered: "<<line<<endl;
+    cout<<"Entered: "<<line<<endl;//Something
 
     cout<<"Infix: "<<infixq<<endl;
 
-    rpnq = shuntingyard::makeRPN(infixq);//Else
+    rpnq = shuntingyard::makeRPN(infixq);
 
     cout<<"Postfix: "<<rpnq<<endl;
 
