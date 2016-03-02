@@ -10,10 +10,16 @@ using namespace std;
 
 int main()
 {
+    string line;
+    cout<<"Please enter expression: ";
+    getline(cin, line);
+
+    while (line!="")
+    {
     queue<token> infixq, rpnq;
     parser p;
     shuntingyard yard;
-    p.feed(" ( 5 * ( 8 + 4 ) )");
+    p.feed(line);
 
     infixq = p.getQue();
 
@@ -24,6 +30,10 @@ int main()
     cout<<rpnq<<endl;
 
     cout<<shuntingyard::calculate(rpnq)<<endl;
+
+    cout<<"Please enter expression: ";
+    getline(cin, line);
+    }
 
     return 0;
 }

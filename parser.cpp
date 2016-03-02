@@ -34,7 +34,6 @@ void parser::feed(string line)
         if(line.substr(pos1, pos2-pos1)!= " ")
         {
         ss<< line.substr(pos1, pos2-pos1);
-        cout<<pos1<<' '<<pos2<<" Substring: "<<line.substr(pos1, pos2-pos1)<<endl;
         ss >> num;
         op = num;
         nQue.push(op);
