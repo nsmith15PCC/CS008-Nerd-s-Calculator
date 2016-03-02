@@ -23,13 +23,15 @@ int main()
 
     infixq = p.getQue();
 
-    cout<<infixq<<endl;
+    cout<<"Entered: "<<line<<endl;
+
+    cout<<"Infix: "<<infixq<<endl;
 
     rpnq = shuntingyard::makeRPN(infixq);
 
-    cout<<rpnq<<endl;
+    cout<<"Postfix: "<<rpnq<<endl;
 
-    cout<<shuntingyard::calculate(rpnq)<<endl;
+    cout<<"Evaluates to: "<<shuntingyard::calculate(rpnq)<<endl;
 
     cout<<"Please enter expression: ";
     getline(cin, line);

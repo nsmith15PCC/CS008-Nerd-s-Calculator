@@ -25,14 +25,14 @@ void parser::feed(string line)
         stringstream ss;
         mixed num;
         token op;
-        pos2 = line.find_first_of("/*-+^()",pos1+1);
+        pos2 = line.find_first_of("/*-+^()",pos1);
         if ((line[pos2] == '/' || line[pos2] == '-')&&isdigit(line[pos2+1]))
             pos2 = line.find_first_of("/*-+^()",pos2+1);
         if (pos2 == string::npos)
             pos2 = line.length();
-        if(line.substr(pos1, pos2-pos1)!= " ")
+        if(line.substr(pos1, pos2-pos1)!= " " && line.substr(pos1, pos2-pos1)!= "")
         {
-        cout<<"Pos 1: "<<pos1<<" Pos 2: "<<pos2<<" Substring: "<<line.substr(pos1, pos2-pos1)<<endl;
+//        cout<<"Pos 1: "<<pos1<<" Pos 2: "<<pos2<<" Substring: "<<line.substr(pos1, pos2-pos1)<<endl;
         ss<< line.substr(pos1, pos2-pos1);
         ss >> num;
         op = num;
