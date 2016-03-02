@@ -110,15 +110,49 @@ ostream& operator<<(ostream& out, const mixed &number)
 
 istream& operator>>(istream& in, mixed &number)
 {
-    int w, n, d;
+    int w=0, n, d=1;
+    double c;
     stringstream ss;
     char junk;
     string line;
 
-    in >> w >> n >> junk >> d;
+    getline(in,line);
+    ss << line;
+
+    if (line.find('.')<string::npos)
+    {
+        ss << line;
+        ss >> c;
+        number = c;
+        return in;
+    }
+
+    size_t first_num, space, second_num, slash;
+
+    first_num = line.find_first_of("0123456789");
+
+    space = line.find(' ', first_num+1);
+
+    second_num = line.find_first_of("0123456789", space);
+
+    slash = line.find('/', first_num);
+
+    if (space>first_num && second_num != string::npos)
+    {
+        ss >> w >> n >> junk >> d;
+    }
+
+    else if (slash != string::npos)
+    {
+        ss >> n >> junk >> d;
+    }
+
+    else
+    {
+        ss >> n;
+    }
 
     number = mixed(w, n, d);
-
 
     return in;
 }

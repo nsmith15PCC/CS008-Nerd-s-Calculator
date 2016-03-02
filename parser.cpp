@@ -17,15 +17,13 @@ parser::~parser()
 
 void parser::feed(string line)
 {
-    stringstream ss;
-    mixed num;
-    token op;
-
     size_t pos1 = 0, pos2;
-
 
     while (pos1 < line.length())
     {
+        stringstream ss;
+        mixed num;
+        token op;
         pos2 = line.find_first_of("/*-+^()",pos1+1);
         if ((line[pos2] == '/' || line[pos2] == '-')&&isdigit(line[pos2+1]))
             pos2 = line.find_first_of("/*-+^()",pos2+1);
@@ -33,6 +31,7 @@ void parser::feed(string line)
             pos2 = line.length();
         if(line.substr(pos1, pos2-pos1)!= " ")
         {
+        cout<<"Pos 1: "<<pos1<<" Pos 2: "<<pos2<<" Substring: "<<line.substr(pos1, pos2-pos1)<<endl;
         ss<< line.substr(pos1, pos2-pos1);
         ss >> num;
         op = num;
