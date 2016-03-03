@@ -23,7 +23,7 @@ int main()
 
     infixq = p.getQue();
 
-    cout<<"Entered: "<<line<<endl;//Else
+    cout<<"Entered: "<<line<<endl;
 
     cout<<"Infix: "<<infixq<<endl;
 
