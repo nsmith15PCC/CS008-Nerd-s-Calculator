@@ -11,7 +11,8 @@ SOURCES += \
     main.cpp \
     token.cpp \
     shuntingyard.cpp \
-    parser.cpp
+    parser.cpp \
+    memory.cpp
 
 HEADERS += \
     linkedlist.h \
@@ -23,5 +24,6 @@ HEADERS += \
     stack.h \
     token.h \
     shuntingyard.h \
-    parser.h
+    parser.h \
+    memory.h
 
