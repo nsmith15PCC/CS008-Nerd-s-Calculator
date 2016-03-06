@@ -5,36 +5,31 @@
 #include "queue.h"
 #include "parser.h"
 #include "shuntingyard.h"
+#include "memory.h"
 
 using namespace std;
 
 int main()
 {
     string line;
+    memory mem;
     cout<<"Please enter expression: ";
     getline(cin, line);
 
     while (line!="")
     {
-    queue<token> infixq, rpnq;
-    parser p;
-    shuntingyard yard;
-    p.feed(line);
+        if (line.find('=') != string::npos)
+            mem.store(line);
+        else
+        {
+            line = mem.replaceVars(line);
+             parser p;
+            p.feed(line);
+            cout<<shuntingyard::calculate(shuntingyard::makeRPN(p.getQue()))<<endl;
+        }
+        cout<<"Please enter expression: ";
+        getline(cin, line);
 
-    infixq = p.getQue();
-
-    cout<<"Entered: "<<line<<endl;//Else
-
-    cout<<"Infix: "<<infixq<<endl;
-
-    rpnq = shuntingyard::makeRPN(infixq);
-
-    cout<<"Postfix: "<<rpnq<<endl;
-
-    cout<<"Evaluates to: "<<shuntingyard::calculate(rpnq)<<endl;
-
-    cout<<"Please enter expression: ";
-    getline(cin, line);
     }
 
     return 0;
