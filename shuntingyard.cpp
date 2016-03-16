@@ -1,5 +1,7 @@
 #include "shuntingyard.h"
 
+shuntingyard::func_ptr shuntingyard::doOperation[] = {nullptr};
+
 shuntingyard::shuntingyard()
 {
 
@@ -51,6 +53,7 @@ queue<token> shuntingyard::makeRPN (queue<token> infixq)
         rpnq.push(o2);
         op_stack.pop();
     }
+
     return rpnq;
 }
 
@@ -58,23 +61,46 @@ mixed shuntingyard::calculate (queue<token> rpnq)
 {
     stack<token> val_stack;
 
+    doOperation[0] = &doOperand;
+    doOperation[1] = &doOperator;
+
     while (!rpnq.empty())
     {
         token o1 = rpnq.front();
         rpnq.pop();
 
-        if (o1.isOperator())
-        {
-            token second = val_stack.top();
-            val_stack.pop();
-            token first = val_stack.top();
-            val_stack.pop();
-            token answer = o1.perform(first,second);
-            val_stack.push(answer);
-        }
-        else
-            val_stack.push(o1);
+        (doOperation[o1.isOperator()])(val_stack, o1);
+
+//        if (o1.isOperator())
+//        {
+//            token second = val_stack.top();
+//            val_stack.pop();
+//            token first = val_stack.top();
+//            val_stack.pop();
+//            token answer = o1.perform(first,second);
+//            val_stack.push(answer);
+//        }
+//        else
+//            val_stack.push(o1);
     }
 
+
     return val_stack.top().value();
+}
+
+void shuntingyard::doOperator(stack<token> &val_stack, token &o1)
+{
+    cout << "On doOperator!" << endl;
+    token second = val_stack.top();
+    val_stack.pop();
+    token first = val_stack.top();
+    val_stack.pop();
+    token answer = o1.perform(first,second);
+    val_stack.push(answer);
+}
+
+void shuntingyard::doOperand(stack<token> &val_stack, token &o1)
+{
+    cout << "On doOperand!" << endl;
+    val_stack.push(o1);
 }
