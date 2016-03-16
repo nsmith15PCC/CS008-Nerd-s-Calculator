@@ -30,7 +30,7 @@ queue<token> shuntingyard::makeRPN (queue<token> infixq)
             }
             else
             {
-                while (!op_stack.empty() && (op_stack.top() > o1))
+                while (!op_stack.empty() && (op_stack.top() >= o1))
                 {
                     token o2 = op_stack.top();
                     rpnq.push(o2);
