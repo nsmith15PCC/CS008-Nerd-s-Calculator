@@ -96,6 +96,11 @@ void mixed::value(const fraction &x)
 
 ostream& operator<<(ostream& out, const mixed &number)
 {
+    if (number.setdecimal())
+    {
+        cout << (double)number.numerator()/number.denominator();
+        return out;
+    }
     if (number.denominator() != 1)
     {
     if (abs(number.numerator())>=number.denominator())
