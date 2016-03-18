@@ -122,11 +122,11 @@ istream& operator>>(istream& in, mixed &number)
     string line;
 
     getline(in,line);
+    cout << "line = " << line << endl;
     ss << line;
 
     if (line.find('.')<string::npos)
     {
-        ss << line;
         ss >> c;
         number = c;
         return in;
@@ -145,6 +145,7 @@ istream& operator>>(istream& in, mixed &number)
     if (space>first_num && second_num != string::npos)
     {
         ss >> w >> n >> junk >> d;
+        cout << "w = " << w << endl << "n = " << n << endl << "d = " << d << endl;
     }
 
     else if (slash != string::npos)
