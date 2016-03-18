@@ -90,7 +90,6 @@ mixed shuntingyard::calculate (queue<token> rpnq)
 
 void shuntingyard::doOperator(stack<token> &val_stack, token &o1)
 {
-    cout << "On doOperator!" << endl;
     token second = val_stack.top();
     val_stack.pop();
     token first = val_stack.top();
@@ -101,6 +100,5 @@ void shuntingyard::doOperator(stack<token> &val_stack, token &o1)
 
 void shuntingyard::doOperand(stack<token> &val_stack, token &o1)
 {
-    cout << "On doOperand!" << endl;
     val_stack.push(o1);
 }
