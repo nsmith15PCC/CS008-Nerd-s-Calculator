@@ -115,7 +115,7 @@ ostream& operator<<(ostream& out, const mixed &number)
 
 istream& operator>>(istream& in, mixed &number)
 {
-    int w=0, n, d=1;
+    int w=0, n=0, d=1;
     double c;
     stringstream ss;
     char junk;
@@ -141,10 +141,12 @@ istream& operator>>(istream& in, mixed &number)
 
     slash = line.find('/', first_num);
 
-    if (space>first_num && second_num != string::npos)
+    if(space>first_num && second_num != string::npos)
     {
-        ss >> w >> n >> junk >> d;
-        cout << "w = " << w << endl << "n = " << n << endl << "d = " << d << endl;
+        ss >> w >> n >> junk >> d ;
+        if(w < 0)
+            n*=-1;
+//        cout << "w = " << w << endl << "n = " << n << endl << "d = " << d << endl;
     }
 
     else if (slash != string::npos)

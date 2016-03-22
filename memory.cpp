@@ -70,19 +70,21 @@ bool memory::store(string input)
     ss << input.substr(0,pos);
     ss >> index;
 
+    input = input.substr(pos+1);
+
+    input = replaceVars(input);
+
     if (values.find(index) != values.end())
     {
         string answer;
         std::cout<<"Variable "<<index<<" currently holds value "<<values[index]<<endl
-                   <<"Overwrite? ";
+                <<"Overwrite with " << input << " ? ";
         std::getline(std::cin, answer);
         if (toupper(answer[0]) != 'Y')
             return false;
     }
 
-    input = input.substr(pos+1);
 
-    input = replaceVars(input);
 
     parser p(input);
     queue<token> infixq = p.getQue(), rpnq = shuntingyard::makeRPN(infixq);
