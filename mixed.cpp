@@ -146,11 +146,12 @@ istream& operator>>(istream& in, mixed &number)
         if(space>first_num && second_num != string::npos)
         {
             ss >> w >> n >> junk >> d ;
-            if(w < 0)
-                n*=-1;
 
             if(n < 0 || d < 0)
                   throw NEGATIVE_NUM;
+
+            if(w < 0)
+                n*=-1;
 
     //        cout << "w = " << w << endl << "n = " << n << endl << "d = " << d << endl;
         }
