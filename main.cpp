@@ -41,8 +41,12 @@ int main()
                 {
                     line = mem.replaceVars(line);
                      parser p;
+                     try{
                     p.feed(line);
                     cout<<shuntingyard::calculate(shuntingyard::makeRPN(p.getQue()))<<endl;
+                     }
+                    catch (...)
+                    {cout<<"Invalid Expression!"<<endl;}
                 }
             }
         cout<<"Please enter expression: ";
