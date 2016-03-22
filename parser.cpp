@@ -56,9 +56,17 @@ void parser::feed(string line)
     mixed num;
     token op;
     line += " ";
+    try
+    {
+        if(line.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890()^*/-+. ") < string::npos)
+            throw INVALID_CHARACTER;
+    }
+    catch (PARSER_ERRORS e)
+    {
+        cout << "Invalid character used for calculator!\n";
+        exit(0);
+    }
 
-    if(line.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890()^*/-+. "))
-        throw INVALID_CHARACTER;
     while(pos < line.length()-1)
     {
 //        cout << "pos = " << pos << endl;

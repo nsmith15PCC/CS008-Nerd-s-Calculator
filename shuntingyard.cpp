@@ -12,6 +12,7 @@ queue<token> shuntingyard::makeRPN (queue<token> infixq)
     stack<token> op_stack;
     queue<token> rpnq;
 
+
     while (!infixq.empty())
     {
         token o1 = infixq.front();
@@ -22,11 +23,23 @@ queue<token> shuntingyard::makeRPN (queue<token> infixq)
                 op_stack.push(o1);
             else if (o1.op() == ')')
             {
+
                 while (op_stack.top().op() != '(')
                 {
                     token o2 = op_stack.top();
                     rpnq.push(o2);
                     op_stack.pop();
+
+                    try
+                    {
+                        if(op_stack.empty())
+                            throw MISSING_LEFT_PARENTHESES;
+                    }
+                    catch (SHUNTINGYARD_ERRORS e)
+                    {
+                        cout << "Missing parentheses!\n";
+                        exit(0);
+                    }
                 }
                 op_stack.pop();
             }
@@ -83,8 +96,6 @@ mixed shuntingyard::calculate (queue<token> rpnq)
 //        else
 //            val_stack.push(o1);
     }
-
-
     return val_stack.top().value();
 }
 

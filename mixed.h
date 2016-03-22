@@ -10,6 +10,8 @@
 
 using namespace std;
 
+enum MFRACTION_ERRORS{NEGATIVE_NUM};
+
 class mixed : public fraction
 {
     public:

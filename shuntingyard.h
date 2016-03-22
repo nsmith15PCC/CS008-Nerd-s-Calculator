@@ -7,6 +7,8 @@
 #include "queue.h"
 #include "mixed.h"
 
+enum SHUNTINGYARD_ERRORS{MISSING_LEFT_PARENTHESES};
+
 class shuntingyard
 {
 public:
