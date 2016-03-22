@@ -29,6 +29,10 @@ public:
 
     bool store(string input);
 
+    void erase(char index);
+
+    void newMem();
+
     friend
     ostream& operator<<(ostream& out, const memory &m);
 
