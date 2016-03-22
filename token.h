@@ -2,6 +2,8 @@
 #define TOKEN
 #include "mixed.h"
 
+enum TOKEN_ERRORS{MISSING_RIGHT_PARENTHESES};
+
 class token
 {
 public:
@@ -76,6 +78,7 @@ private:
     static token times (const token &x, const token &y);
     static token divide (const token &x, const token &y);
     static token power (const token &x, const token &y);
+    static token parentheses(const token &x, const token &y);
 };
 
 #endif // TOKEN

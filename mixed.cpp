@@ -141,22 +141,39 @@ istream& operator>>(istream& in, mixed &number)
 
     slash = line.find('/', first_num);
 
-    if(space>first_num && second_num != string::npos)
+    try
     {
-        ss >> w >> n >> junk >> d ;
-        if(w < 0)
-            n*=-1;
-//        cout << "w = " << w << endl << "n = " << n << endl << "d = " << d << endl;
-    }
+        if(space>first_num && second_num != string::npos)
+        {
+            ss >> w >> n >> junk >> d ;
 
-    else if (slash != string::npos)
-    {
-        ss >> n >> junk >> d;
-    }
+            if(n < 0 || d < 0)
+                  throw NEGATIVE_NUM;
 
-    else
+            if(w < 0)
+                n*=-1;
+
+    //        cout << "w = " << w << endl << "n = " << n << endl << "d = " << d << endl;
+        }
+
+        else if (slash != string::npos)
+        {
+            ss >> n >> junk >> d;
+
+            if(d < 0)
+                throw NEGATIVE_NUM;
+
+        }
+
+        else
+        {
+            ss >> n;
+        }
+    }
+    catch (MFRACTION_ERRORS e)
     {
-        ss >> n;
+        cout << "Inappropriate negative number for fraction!\n";
+        exit(0);
     }
 
     number = mixed(w, n, d);
