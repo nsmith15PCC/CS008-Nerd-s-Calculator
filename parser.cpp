@@ -55,6 +55,7 @@ void parser::feed(string line)
     stringstream ss;
     mixed num;
     token op;
+    string filler = "";
     line += " ";
     try
     {
@@ -82,22 +83,18 @@ void parser::feed(string line)
             ss.clear();
             op = num;
             nQue.push(op);
-//            cout << "op = " << op << endl;
         }
         else if(line[pos+1] == ' ')
         {
-//            cout << "Inputting normal op!\n";
-            if(line.substr(0,pos) != " ")
+            if(line.substr(0,pos).find_first_not_of(" ") < string::npos)
             {
                 ss << line.substr(0,pos);
                 ss >> num;
                 ss.clear();
                 op = num;
-//                cout << "num = " << num << endl;
                 nQue.push(op);
             }
             op = line[pos];
-//            cout << "op = " << op << endl;
             nQue.push(op);
             line = line.substr(pos+1);
             pos = 0;
