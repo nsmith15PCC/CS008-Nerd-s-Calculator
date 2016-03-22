@@ -55,8 +55,9 @@ void parser::feed(string line)
     stringstream ss;
     mixed num;
     token op;
-    string filler = "";
+
     line += " ";
+
     try
     {
         if(line.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890()^*/-+. ") < string::npos)
@@ -70,13 +71,10 @@ void parser::feed(string line)
 
     while(pos < line.length()-1)
     {
-//        cout << "pos = " << pos << endl;
         pos = line.find_first_of("/*-+^()", pos);
-//        cout << "pos search = " << pos << endl;
 
         if(pos >= string::npos)
         {
-//            cout << "Stringnpos!\n";
             pos = line.length();
             ss << line.substr(0,pos);
             ss >> num;
@@ -95,6 +93,11 @@ void parser::feed(string line)
                 nQue.push(op);
             }
             op = line[pos];
+            if(op == '(' && line[pos-1] == '-')
+            {
+                nQue.push(token(-1));
+                nQue.push(token('*'));
+            }
             nQue.push(op);
             line = line.substr(pos+1);
             pos = 0;
@@ -104,7 +107,6 @@ void parser::feed(string line)
             pos = pos+1;
         }
     }
-//    cout << "Loop was fine!\n";
 }
 
 queue<token>& parser::getQue()
