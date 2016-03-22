@@ -20,9 +20,6 @@ void parser::feed(string line)
     size_t pos1 = 0, pos2;
     line = " "+line;
 
-
-    cout << line << endl;
-
     while (pos1 < line.length())
     {
         stringstream ss;

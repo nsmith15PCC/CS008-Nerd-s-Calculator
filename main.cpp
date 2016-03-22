@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 #include "mixed.h"
 #include "stack.h"
@@ -6,34 +7,44 @@
 #include "parser.h"
 #include "shuntingyard.h"
 #include "memory.h"
+#include "instruction.h"
 
 using namespace std;
 
 void capitalizeString(string &line);
-bool checkInstruction(string line);
+
 
 int main()
 {
     string line;
     memory mem;
+    instruction instruct;
+
     cout<<"Please enter expression: ";
     getline(cin, line);
 
     while (line!="")
     {
         capitalizeString(line);
-        if(checkInstruction(line))
-            return 0;
-
-        if (line.find('=') != string::npos)
-            mem.store(line);
-        else
+        if(line.find("EXIT") < string::npos || line.find("QUIT") < string::npos
+                || line.find("LOAD") < string::npos || line.find("READ") < string::npos
+                || line.find("CLEAR") < string::npos || line.find("WRITE") < string::npos)
         {
-            line = mem.replaceVars(line);
-             parser p;
-            p.feed(line);
-            cout<<shuntingyard::calculate(shuntingyard::makeRPN(p.getQue()))<<endl;
+            if(instruct.perform(line, mem))
+                return 0;
         }
+        else
+            {
+                if (line.find('=') != string::npos)
+                    mem.store(line);
+                else
+                {
+                    line = mem.replaceVars(line);
+                     parser p;
+                    p.feed(line);
+                    cout<<shuntingyard::calculate(shuntingyard::makeRPN(p.getQue()))<<endl;
+                }
+            }
         cout<<"Please enter expression: ";
         getline(cin, line);
     }
@@ -51,8 +62,4 @@ void capitalizeString(string &line)
     }
 }
 
-bool checkInstruction(string line)
-{
-    if(line.find("EXIT") < string::npos|| line.find("QUIT") < string::npos)
-        return true;
-}
+

@@ -4,8 +4,7 @@ enum MEMORY_ERRORS{NO_KEY};
 
 memory::memory()
 {
-    values = map<char,mixed>();
-    it = values.begin();
+    newMem();
 }
 
 memory::~memory()
@@ -114,4 +113,21 @@ istream& operator>>(istream& in, memory &m)
     {
         m.store(input);
     }
+}
+
+void memory::erase(char index)
+{
+    map<char,mixed>::const_iterator it = values.find(index);
+    if (it == values.end())
+        throw NO_KEY;
+    else
+    {
+        values.erase(index);
+    }
+}
+
+void memory::newMem()
+{
+    values = map<char,mixed>();
+    it = values.begin();
 }
