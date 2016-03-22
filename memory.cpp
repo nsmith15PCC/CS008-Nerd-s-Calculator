@@ -67,7 +67,6 @@ bool memory::store(string input)
     size_t pos = input.find('=');
     stringstream ss;
     char index;
-    string expression;
 
     ss << input.substr(0,pos);
     ss >> index;
@@ -88,8 +87,15 @@ bool memory::store(string input)
 
     parser p(input);
     queue<token> infixq = p.getQue(), rpnq = shuntingyard::makeRPN(infixq);
+    if(index < 41 || index > 90)
+    {
+        cout << "Invalid memory storage address!\n";
+        throw NO_KEY;
+
+    }
     values[index] = shuntingyard::calculate(rpnq);
-    cout<<index<<" = "<<values[index]<<endl;
+    cout<<values[index]<< " is now stored in memory location <" << index<<">"<<endl;
+
     return true;
 }
 

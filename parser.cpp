@@ -20,8 +20,9 @@ void parser::feed(string line)
     size_t pos1 = 0, pos2;
     line = " "+line;
 
-    if(line.find_first_not_of("()ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-/*-+^= ")<string::npos)
-        cout << "WRONG!\n";
+
+    cout << line << endl;
+
     while (pos1 < line.length())
     {
         stringstream ss;
@@ -35,10 +36,10 @@ void parser::feed(string line)
         if(line.substr(pos1, pos2-pos1)!= " " && line.substr(pos1, pos2-pos1)!= "")
         {
 //        cout<<"Pos 1: "<<pos1<<" Pos 2: "<<pos2<<" Substring: "<<line.substr(pos1, pos2-pos1)<<endl;
-            cout << "line into sstream : " << line.substr(pos1, pos2-pos1) << endl;
+//            cout << "line into sstream : " << line.substr(pos1, pos2-pos1) << endl;
             ss<< line.substr(pos1, pos2-pos1);
             ss >> num;
-            cout << "num = " << num << endl;
+//            cout << "num = " << num << endl;
             op = num;
             nQue.push(op);
         }

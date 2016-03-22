@@ -122,7 +122,6 @@ istream& operator>>(istream& in, mixed &number)
     string line;
 
     getline(in,line);
-    cout << "line = " << line << endl;
     ss << line;
 
     if (line.find('.')<string::npos)
