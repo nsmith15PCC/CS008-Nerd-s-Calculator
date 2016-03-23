@@ -36,12 +36,14 @@ int main()
         else
             {
                 if (line.find('=') != string::npos)
+                    try{
                     mem.store(line);
+                }catch(...){cout<<"Invalid Expression!"<<endl;}
                 else
                 {
+                    try{
                     line = mem.replaceVars(line);
                      parser p;
-                     try{
                     p.feed(line);
                     cout<<shuntingyard::calculate(shuntingyard::makeRPN(p.getQue()))<<endl;
                      }
