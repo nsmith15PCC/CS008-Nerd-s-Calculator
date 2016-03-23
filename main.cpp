@@ -12,6 +12,7 @@
 using namespace std;
 
 void capitalizeString(string &line);
+void calculation(string &line, memory mem);
 
 
 int main()
@@ -36,13 +37,23 @@ int main()
         else
             {
                 if (line.find('=') != string::npos)
+                    try{
                     mem.store(line);
+                }
+                catch(...)
+                {
+                    cout<<"Invalid memory expression!"<<endl;
+                }
                 else
                 {
+                    try{
                     line = mem.replaceVars(line);
-                     parser p;
+                    parser p;
                     p.feed(line);
                     cout<<shuntingyard::calculate(shuntingyard::makeRPN(p.getQue()))<<endl;
+                     }
+                    catch (...)
+                    {cout<<"Invalid Expression!"<<endl;}
                 }
             }
         cout<<"Please enter expression: ";
