@@ -111,6 +111,7 @@ token::token(char o)
     allOps['*'] = &token::times;
     allOps['/'] = &token::divide;
     allOps['^'] = &token::power;
+    allOps['('] = &token::parentheses;
 
     allPriorities['+'] = 1;
     allPriorities['-'] = 1;
@@ -159,6 +160,19 @@ token token::divide (const token &x, const token &y)
 token token::power (const token &x, const token &y)
 {
     return token(x.value() ^ y.value());
+}
+
+token token::parentheses (const token &x, const token &y)
+{
+    try
+    {
+        throw MISSING_RIGHT_PARENTHESES;
+    }
+    catch (TOKEN_ERRORS e)
+    {
+        cout << "Missing parentheses!\n";
+        exit(0);
+    }
 }
 
 bool operator<(const token x, const token y)
