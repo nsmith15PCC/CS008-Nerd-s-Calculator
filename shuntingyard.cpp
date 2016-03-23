@@ -31,16 +31,8 @@ queue<token> shuntingyard::makeRPN (queue<token> infixq)
                     rpnq.push(o2);
                     op_stack.pop();
 
-                    try
-                    {
-                        if(op_stack.empty())
-                            throw MISSING_LEFT_PARENTHESES;
-                    }
-                    catch (SHUNTINGYARD_ERRORS e)
-                    {
-                        cout << "Missing parentheses!\n";
-                        exit(0);
-                    }
+                    if(op_stack.empty())
+                        throw MISSING_LEFT_PARENTHESES;
                 }
                 op_stack.pop();
             }
@@ -84,27 +76,27 @@ mixed shuntingyard::calculate (queue<token> rpnq)
         token o1 = rpnq.front();
         rpnq.pop();
 
-//        try
-//        {
-            (doOperation[o1.isOperator()])(val_stack, o1);
-//        }
-//        catch (SHUNTINGYARD_ERRORS e)
-//        {
-//            cout << "TOO MANY OPERATORS!\n";
-////            exit(0);
-//        }
+        //        try
+        //        {
+        (doOperation[o1.isOperator()])(val_stack, o1);
+        //        }
+        //        catch (SHUNTINGYARD_ERRORS e)
+        //        {
+        //            cout << "TOO MANY OPERATORS!\n";
+        ////            exit(0);
+        //        }
 
-//        if (o1.isOperator())
-//        {
-//            token second = val_stack.top();
-//            val_stack.pop();
-//            token first = val_stack.top();
-//            val_stack.pop();
-//            token answer = o1.perform(first,second);
-//            val_stack.push(answer);
-//        }
-//        else
-//            val_stack.push(o1);
+        //        if (o1.isOperator())
+        //        {
+        //            token second = val_stack.top();
+        //            val_stack.pop();
+        //            token first = val_stack.top();
+        //            val_stack.pop();
+        //            token answer = o1.perform(first,second);
+        //            val_stack.push(answer);
+        //        }
+        //        else
+        //            val_stack.push(o1);
     }
     return val_stack.top().value();
 }
@@ -112,11 +104,11 @@ mixed shuntingyard::calculate (queue<token> rpnq)
 void shuntingyard::doOperator(stack<token> &val_stack, token &o1)
 {
     if(val_stack.empty())
-         throw XSOPERATORS;
+        throw XSOPERATORS;
     token second = val_stack.top();
     val_stack.pop();
     if(val_stack.empty())
-         throw XSOPERATORS;
+        throw XSOPERATORS;
     token first = val_stack.top();
     val_stack.pop();
     token answer = o1.perform(first,second);

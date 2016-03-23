@@ -164,15 +164,15 @@ token token::power (const token &x, const token &y)
 
 token token::parentheses (const token &x, const token &y)
 {
-    try
-    {
+//    try
+//    {
         throw MISSING_RIGHT_PARENTHESES;
-    }
-    catch (TOKEN_ERRORS e)
-    {
-        cout << "Missing parentheses!\n";
-        exit(0);
-    }
+//    }
+//    catch (TOKEN_ERRORS e)
+//    {
+//        cout << "Missing parentheses!\n";
+//        exit(0);
+//    }
 }
 
 bool operator<(const token x, const token y)
