@@ -60,6 +60,7 @@ void fraction::setValue(int n , int d )
 {
     num = n;
     denom = d;
+    reduce();
     decimal = false;
 }
 
@@ -176,6 +177,8 @@ void fraction::reduce()
         num *= -1;
         denom *= -1;
     }
+    if (denom == 0)
+        throw DIVIDEBYZERO;
 }
 
 int& fraction::numerator()

@@ -122,16 +122,25 @@ istream& operator>>(istream& in, mixed &number)
     string line;
 
     getline(in,line);
+//    cout<<"line = "<<line<<endl;
     ss << line;
 
-    if (line.find('.')<string::npos)
+    if (line.find_first_not_of("0123456789 .-/") != string::npos)
+        throw MISFORMED;
+
+    size_t dot = line.find('.');
+    if (dot != string::npos)
     {
+        if (line.find_first_of("+/*") != string::npos)
+            throw MISFORMED;
+        else if (line.find_first_of("-.", dot+1) != string::npos)
+            throw MISFORMED;
         ss >> c;
         number = c;
         return in;
     }
 
-    size_t first_num, space, second_num, slash;
+    size_t first_num, space, second_num, slash, minus;
 
     first_num = line.find_first_of("0123456789");
 
@@ -140,9 +149,14 @@ istream& operator>>(istream& in, mixed &number)
     second_num = line.find_first_of("0123456789", space);
 
     slash = line.find('/', first_num);
+//    if (slash != string::npos line.find_first_not_of("0123456789 ", slash) != string::npos)
+//        throw MISFORMED;
+    if (slash != string::npos && !isdigit(line[slash-1]))
+        throw MISFORMED;
+    minus = line.find('-');
+    if (minus != string::npos && line.find_first_not_of("0123456789 /", minus+1) != string::npos )
+        throw MISFORMED;
 
-    try
-    {
         if(space>first_num && second_num != string::npos)
         {
             ss >> w >> n >> junk >> d ;
@@ -158,9 +172,10 @@ istream& operator>>(istream& in, mixed &number)
 
         else if (slash != string::npos)
         {
+
             ss >> n >> junk >> d;
 
-            if(d < 0)
+            if(d <= 0)
                 throw NEGATIVE_NUM;
 
         }
@@ -169,14 +184,14 @@ istream& operator>>(istream& in, mixed &number)
         {
             ss >> n;
         }
-    }
-    catch (MFRACTION_ERRORS e)
-    {
-        cout << "Inappropriate negative number for fraction!\n";
-        exit(0);
-    }
+//    }
+//    catch (MFRACTION_ERRORS e)
+//    {
+//        cout << "Inappropriate negative number for fraction!\n";
+//        exit(0);
+//    }
 
     number = mixed(w, n, d);
-
+//    cout<<"Number = "<<number<<endl;
     return in;
 }
