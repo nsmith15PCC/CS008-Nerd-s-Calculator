@@ -122,6 +122,7 @@ istream& operator>>(istream& in, mixed &number)
     string line;
 
     getline(in,line);
+    cout<<"line = "<<line<<endl;
     ss << line;
 
     if (line.find('.')<string::npos)
@@ -130,6 +131,9 @@ istream& operator>>(istream& in, mixed &number)
         number = c;
         return in;
     }
+
+    if (line.find_first_not_of("0123456789 -/")<string::npos)
+        throw NEGATIVE_NUM;
 
     size_t first_num, space, second_num, slash;
 
@@ -141,8 +145,9 @@ istream& operator>>(istream& in, mixed &number)
 
     slash = line.find('/', first_num);
 
-    try
-    {
+    if (slash < string::npos && line.find_first_not_of("0123456789 ", slash+1) < string::npos)
+        throw MISFORMED;
+
         if(space>first_num && second_num != string::npos)
         {
             ss >> w >> n >> junk >> d ;
@@ -160,7 +165,7 @@ istream& operator>>(istream& in, mixed &number)
         {
             ss >> n >> junk >> d;
 
-            if(d < 0)
+            if(d <= 0)
                 throw NEGATIVE_NUM;
 
         }
@@ -169,12 +174,12 @@ istream& operator>>(istream& in, mixed &number)
         {
             ss >> n;
         }
-    }
-    catch (MFRACTION_ERRORS e)
-    {
-        cout << "Inappropriate negative number for fraction!\n";
-        exit(0);
-    }
+//    }
+//    catch (MFRACTION_ERRORS e)
+//    {
+//        cout << "Inappropriate negative number for fraction!\n";
+//        exit(0);
+//    }
 
     number = mixed(w, n, d);
 
