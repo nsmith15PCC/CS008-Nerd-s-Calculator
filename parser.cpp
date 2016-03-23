@@ -82,7 +82,7 @@ void parser::feed(string line)
             op = num;
             nQue.push(op);
         }
-        else if(line[pos+1] == ' ' || line[pos+1] == '(' || isdigit(line[pos+1]))
+        else if(line[pos+1] == ' ' || line[pos+1] == '(')
         {
             if(line.substr(0,pos).find_first_not_of(" ") < string::npos)
             {

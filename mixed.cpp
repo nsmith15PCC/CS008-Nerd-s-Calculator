@@ -122,7 +122,7 @@ istream& operator>>(istream& in, mixed &number)
     string line;
 
     getline(in,line);
-//    cout<<"line = "<<line<<endl;
+    cout<<"line = "<<line<<endl;
     ss << line;
 
     if (line.find('.')<string::npos)
@@ -145,7 +145,7 @@ istream& operator>>(istream& in, mixed &number)
 
     slash = line.find('/', first_num);
 
-    if (slash <string::npos && line.find_first_not_of("0123456789 ", slash+1) < string::npos)
+    if (slash < string::npos && line.find_first_not_of("0123456789 ", slash+1) < string::npos)
         throw MISFORMED;
 
         if(space>first_num && second_num != string::npos)
