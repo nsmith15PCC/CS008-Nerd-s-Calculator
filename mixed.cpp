@@ -125,15 +125,17 @@ istream& operator>>(istream& in, mixed &number)
     cout<<"line = "<<line<<endl;
     ss << line;
 
-    if (line.find('.')<string::npos)
+    size_t dot = line.find('.');
+    if (dot != string::npos)
     {
+        if (line.find_first_of("+/*") != string::npos)
+            throw MISFORMED;
+        else if (line.find_first_of("-.", dot+1) != string::npos)
+            throw MISFORMED;
         ss >> c;
         number = c;
         return in;
     }
-
-    if (line.find_first_not_of("0123456789 -/")<string::npos)
-        throw NEGATIVE_NUM;
 
     size_t first_num, space, second_num, slash;
 
@@ -144,9 +146,9 @@ istream& operator>>(istream& in, mixed &number)
     second_num = line.find_first_of("0123456789", space);
 
     slash = line.find('/', first_num);
+//    if (slash != string::npos line.find_first_not_of("0123456789 ", slash) != string::npos)
+//        throw MISFORMED;
 
-    if (slash < string::npos && line.find_first_not_of("0123456789 ", slash+1) < string::npos)
-        throw MISFORMED;
 
         if(space>first_num && second_num != string::npos)
         {
@@ -163,6 +165,7 @@ istream& operator>>(istream& in, mixed &number)
 
         else if (slash != string::npos)
         {
+
             ss >> n >> junk >> d;
 
             if(d <= 0)
@@ -182,6 +185,6 @@ istream& operator>>(istream& in, mixed &number)
 //    }
 
     number = mixed(w, n, d);
-
+    cout<<"Number = "<<number<<endl;
     return in;
 }

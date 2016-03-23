@@ -72,6 +72,9 @@ bool memory::store(string input)
 
     input = input.substr(pos+1);
 
+    if (input.find_first_not_of(" ") == string::npos)
+        throw NO_KEY;
+
     input = replaceVars(input);
 
     if (values.find(index) != values.end())
