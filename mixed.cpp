@@ -149,8 +149,9 @@ istream& operator>>(istream& in, mixed &number)
     second_num = line.find_first_of("0123456789", space);
 
     slash = line.find('/', first_num);
-//    if (slash != string::npos line.find_first_not_of("0123456789 ", slash) != string::npos)
-//        throw MISFORMED;
+    if (slash != string::npos && line.find_first_not_of("0123456789 ", slash+1) != string::npos)
+        throw MISFORMED;
+
     if (slash != string::npos && !isdigit(line[slash-1]))
         throw MISFORMED;
     minus = line.find('-');
