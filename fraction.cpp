@@ -257,7 +257,13 @@ fraction operator/(const fraction &x, const fraction &y)
 
 fraction operator^(const fraction &x, const fraction &y)
 {
-    double zdec = pow((double)(x.num)/x.denom, (double)(y.num)/y.denom);
+    double zdec = 0;
+    if (y.num == 1 && (y.denom % 2 == 0) && x.num <= 0)
+        throw INVALID_FRACTION;
+    if((double)(x.num)/x.denom < 0 && y.num%2 == 1 && y.denom%2 && 1)
+        zdec = -pow(-(double)(x.num)/x.denom, (double)(y.num)/y.denom);
+    else
+        zdec = pow((double)(x.num)/x.denom, (double)(y.num)/y.denom);
     fraction z(zdec);
     z.reduce();
     return z;

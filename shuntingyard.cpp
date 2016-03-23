@@ -61,6 +61,7 @@ queue<token> shuntingyard::makeRPN (queue<token> infixq)
         op_stack.pop();
     }
 
+
     return rpnq;
 }
 
@@ -98,6 +99,14 @@ mixed shuntingyard::calculate (queue<token> rpnq)
         //        else
         //            val_stack.push(o1);
     }
+
+    if (val_stack.size() != 1)
+    {
+        cout<<"Stack Size = "<<val_stack.size()<<endl;
+        cout << val_stack<<endl;
+        throw XSOPERATORS;
+    }
+
     return val_stack.top().value();
 }
 

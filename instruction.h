@@ -10,7 +10,7 @@ public:
 
     typedef bool (*func_ptr) (string, memory &mem, ifstream& in, ofstream &out);
 
-    static func_ptr operations[6];
+    func_ptr operations[128];
 
     bool perform(string& line, memory &mem);
 

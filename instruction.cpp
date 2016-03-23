@@ -2,22 +2,20 @@
 
 instruction::instruction()
 {
-
+    operations['Q'] = &instruction::quit;
+    operations['E'] = &instruction::quit;
+    operations['R'] = &instruction::load;
+    operations['L'] = &instruction::load;
+    operations['C'] = &instruction::clearMem;
+    operations['W'] = &instruction::write;
 }
 
-instruction::func_ptr instruction::operations[] = {nullptr};
+//instruction::func_ptr instruction::operations[] = {nullptr};
 
 bool instruction::perform(string &line, memory &mem)
 {
     ifstream in;
     ofstream out;
-
-    operations['Q'] = &quit;
-    operations['E'] = &quit;
-    operations['R'] = &load;
-    operations['L'] = &load;
-    operations['C'] = &clearMem;
-    operations['W'] = &write;
 
     return operations[line[0]] (line, mem, in, out);
 
@@ -63,7 +61,7 @@ bool instruction::quit(string line, memory &mem, ifstream &in, ofstream &out)
         if(toupper(ans[0]) == 'Y')
         {
             cout << "Type the file name : ";
-            getline(in,ans);
+            getline(cin,ans);
             saveFile(ans, mem, out);
         }
     }

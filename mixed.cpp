@@ -131,7 +131,7 @@ istream& operator>>(istream& in, mixed &number)
     size_t dot = line.find('.');
     if (dot != string::npos)
     {
-        if (line.find_first_of("+/*") != string::npos)
+        if (line.find_first_of("+/*^") != string::npos)
             throw MISFORMED;
         else if (line.find_first_of("-.", dot+1) != string::npos)
             throw MISFORMED;
