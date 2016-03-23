@@ -176,9 +176,6 @@ void fraction::reduce()
         num *= -1;
         denom *= -1;
     }
-
-    if (denom == 0)
-        cout << "BAD BOY\n";
 }
 
 int& fraction::numerator()
