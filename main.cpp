@@ -41,7 +41,7 @@ int main()
                 }
                 catch(...)
                 {
-                    cout<<"Invalid Expression!"<<endl;
+                    cout<<"Invalid memory expression!"<<endl;
                 }
                 else
                 {
