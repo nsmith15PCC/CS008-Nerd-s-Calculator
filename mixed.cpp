@@ -122,8 +122,11 @@ istream& operator>>(istream& in, mixed &number)
     string line;
 
     getline(in,line);
-    cout<<"line = "<<line<<endl;
+//    cout<<"line = "<<line<<endl;
     ss << line;
+
+    if (line.find_first_not_of("0123456789 .-/") != string::npos)
+        throw MISFORMED;
 
     size_t dot = line.find('.');
     if (dot != string::npos)
@@ -137,7 +140,7 @@ istream& operator>>(istream& in, mixed &number)
         return in;
     }
 
-    size_t first_num, space, second_num, slash;
+    size_t first_num, space, second_num, slash, minus;
 
     first_num = line.find_first_of("0123456789");
 
@@ -148,7 +151,11 @@ istream& operator>>(istream& in, mixed &number)
     slash = line.find('/', first_num);
 //    if (slash != string::npos line.find_first_not_of("0123456789 ", slash) != string::npos)
 //        throw MISFORMED;
-
+    if (slash != string::npos && !isdigit(line[slash-1]))
+        throw MISFORMED;
+    minus = line.find('-');
+    if (minus != string::npos && line.find_first_not_of("0123456789 /", minus+1) != string::npos )
+        throw MISFORMED;
 
         if(space>first_num && second_num != string::npos)
         {
@@ -185,6 +192,6 @@ istream& operator>>(istream& in, mixed &number)
 //    }
 
     number = mixed(w, n, d);
-    cout<<"Number = "<<number<<endl;
+//    cout<<"Number = "<<number<<endl;
     return in;
 }

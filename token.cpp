@@ -1,4 +1,4 @@
-#include "token.h"
+    #include "token.h"
 
 const bool& token::isOperator() const
 {
