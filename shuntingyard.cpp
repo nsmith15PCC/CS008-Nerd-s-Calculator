@@ -84,15 +84,15 @@ mixed shuntingyard::calculate (queue<token> rpnq)
         token o1 = rpnq.front();
         rpnq.pop();
 
-        try
-        {
+//        try
+//        {
             (doOperation[o1.isOperator()])(val_stack, o1);
-        }
-        catch (SHUNTINGYARD_ERRORS e)
-        {
-            cout << "TOO MANY OPERATORS!\n";
-            exit(0);
-        }
+//        }
+//        catch (SHUNTINGYARD_ERRORS e)
+//        {
+//            cout << "TOO MANY OPERATORS!\n";
+////            exit(0);
+//        }
 
 //        if (o1.isOperator())
 //        {

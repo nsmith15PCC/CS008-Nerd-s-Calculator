@@ -38,7 +38,11 @@ int main()
                 if (line.find('=') != string::npos)
                     try{
                     mem.store(line);
-                }catch(...){cout<<"Invalid Expression!"<<endl;}
+                }
+                catch(...)
+                {
+                    cout<<"Invalid Expression!"<<endl;
+                }
                 else
                 {
                     try{
