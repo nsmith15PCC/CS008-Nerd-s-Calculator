@@ -12,6 +12,7 @@
 using namespace std;
 
 void capitalizeString(string &line);
+void calculation(string &line, memory mem);
 
 
 int main()
@@ -47,7 +48,7 @@ int main()
                 {
                     try{
                     line = mem.replaceVars(line);
-                     parser p;
+                    parser p;
                     p.feed(line);
                     cout<<shuntingyard::calculate(shuntingyard::makeRPN(p.getQue()))<<endl;
                      }

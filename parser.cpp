@@ -58,16 +58,18 @@ void parser::feed(string line)
 
     line += " ";
 
-//    try
-//    {
-        if(line.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890()^*/-+. ") < string::npos)
+    if(line.find_first_not_of("ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890()^*/-+. ") < string::npos)
+        throw INVALID_CHARACTER;
+
+    pos = line.find_first_of("+^*)");
+    while(pos < string::npos)
+    {
+
+        if(pos != string ::npos && (line[pos+1] != ' ' || line[pos-1] != ' '))
             throw INVALID_CHARACTER;
-//    }
-//    catch (PARSER_ERRORS e)
-//    {
-//        cout << "Invalid character used for calculator!\n";
-//        exit(0);
-//    }
+        pos = line.find_first_of("+^*)", pos+1);
+    }
+    pos = 0;
 
     while(pos < line.length()-1)
     {
